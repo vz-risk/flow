@@ -1,0 +1,341 @@
+[
+{
+    "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+},
+{
+    "@id": "http://www.w3.org/2001/XMLSchema#string"
+},
+{
+    "@id": "http://www.w3.org/2002/07/owl#Class"
+},
+{
+    "@id": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+},
+{
+    "@id": "http://www.w3.org/2002/07/owl#FunctionalProperty"
+},
+{
+    "@id": "http://www.w3.org/2002/07/owl#ObjectProperty"
+},
+{
+    "@id": "http://www.w3.org/2002/07/owl#Ontology"
+},
+{
+    "@id": "http://www.w3.org/2002/07/owl#topObjectProperty"
+},
+{
+    "@id": "urn:absolute:flow-v1",
+    "@type": ["http://www.w3.org/2002/07/owl#Ontology"],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "Action-Asset model"
+    }],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+    {
+        "@value": "0.2.6"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#action",
+    "@type": ["http://www.w3.org/2002/07/owl#Class"],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+    {
+        "@id": "urn:absolute:flow-v1#property"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#asset",
+    "@type": ["http://www.w3.org/2002/07/owl#Class"],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+    {
+        "@id": "urn:absolute:flow-v1#property"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "It is acceptable to sub-class assets"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#attack-flow",
+    "@type": ["http://www.w3.org/2002/07/owl#Class"],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+    {
+        "@id": "urn:absolute:flow-v1#property"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#author",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#attack-flow"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "The author of the Attack Flow."
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#confidence",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "Float from 0 to 1 or distribution representing the confidence that the action succeeded. Assumed to be 1 (100% ~ ground truth) if not included."
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#created",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#attack-flow"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "Creation time of the Attack Flow. (RFC-3339 format, e.g. YYYY-MM-DDThh:mm:ssZ)"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#described_by",
+    "@type": ["http://www.w3.org/2002/07/owl#ObjectProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "urn:absolute:flow-v1#property"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#description",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "The description of the Attack Flow or action."
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#description.action",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "urn:absolute:flow-v1#description"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#description.attack-flow",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "urn:absolute:flow-v1#description"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#attack-flow"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#flow",
+    "@type": ["http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "urn:absolute:flow-v1#described_by"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "urn:absolute:flow-v1#attack-flow"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#logic_operator",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "`AND` means that all input nodes/trees must be true in order for this Action to succeed. `OR` means that one input node/tree must be true in order for this Action to succeed. The returned 'success' state should match the 'state' used on assets. TBD extension point"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#logic_operator_language",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#name",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "The name of the attack flow or attack action.  For actions, may be an ATT&CK technique name."
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#name.action",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "urn:absolute:flow-v1#name"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#name.attack-flow",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "urn:absolute:flow-v1#name"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#attack-flow"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#property",
+    "@type": ["http://www.w3.org/2002/07/owl#Class"]
+},
+{
+    "@id": "urn:absolute:flow-v1#reference",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "A reference for the action. May be a URL to an ATT&CK technique."
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#state",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#asset"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#state_change",
+    "@type": ["http://www.w3.org/2002/07/owl#ObjectProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "http://www.w3.org/2002/07/owl#topObjectProperty"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "urn:absolute:flow-v1#asset"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#state_requirements",
+    "@type": ["http://www.w3.org/2002/07/owl#ObjectProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+    {
+        "@id": "http://www.w3.org/2002/07/owl#topObjectProperty"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#asset"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#succeeded",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#decimal"
+    }]
+},
+{
+    "@id": "urn:absolute:flow-v1#timestamp",
+    "@type": ["http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#FunctionalProperty"],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+    {
+        "@id": "urn:absolute:flow-v1#action"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+    {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+    }],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+    {
+        "@value": "The timestamp when this action was observed. (RFC-3339 format, e.g. YYYY-MM-DDThh:mm:ssZ)"
+    }]
+}]

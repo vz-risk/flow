@@ -8,9 +8,9 @@ from rdflib.term import Literal, URIRef
 import json
 from jsonschema import validate, ValidationError # validate json schema
 from collections import defaultdict
-import warnings
+import logging
 # may want to replace owlrl with reasonable when reasonable is more complete as owlrl is slow.
-from owlrl import DeductiveClosure, OWLRL_Semantics, RDFS_OWLRL_Semantics 
+#from owlrl import DeductiveClosure, OWLRL_Semantics, RDFS_OWLRL_Semantics 
 #import reasonable # https://lib.rs/crates/reasonable
 
 class flow():
@@ -135,12 +135,12 @@ class flow():
                 target_id = edge['target'].split("//")[-1].split("#")[-1]
                 if source_id in actions:
                     if target_id in actions:
-                        warnings.warn("Edge <{0}, {1}, {2}> is between two actions.  This is not part of the attack flow schema and as such the edge will not be added".format(source_id, type_id, target_id))
+                        logging.warning("Edge <{0}, {1}, {2}> is between two actions.  This is not part of the attack flow schema and as such the edge will not be added".format(source_id, type_id, target_id))
                     elif type_id == "flow" and target_id != flow_id:
-                        warnings.warn("Edge <{0}, {1}, {2}> is a flow edge that does not point to an attack-flow.  This is not part of the attack flow schema and as such the edge will not be added".format(source_id, type_id, target_id))
+                        logging.warning("Edge <{0}, {1}, {2}> is a flow edge that does not point to an attack-flow.  This is not part of the attack flow schema and as such the edge will not be added".format(source_id, type_id, target_id))
                     elif target_id == flow_id:
                         if type_id != "flow":
-                            warnings.warn("Edge <{0}, {1}, {2}> does not have type 'flow' but points to an attack-flow.  Adding it with 'flow' as the type instead of '{1}'.".format(source_id, type_id, target_id))
+                            logging.warning("Edge <{0}, {1}, {2}> does not have type 'flow' but points to an attack-flow.  Adding it with 'flow' as the type instead of '{1}'.".format(source_id, type_id, target_id))
                         flow_graph.add((self.namespace[source_id], self.namespace["flow"], self.namespace[target_id]))                            
                     elif target_id in assets:
                         flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
@@ -157,10 +157,10 @@ class flow():
                         flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
                 elif source_id in assets:
                     if type_id == "flow" and target_id != flow_id:
-                        warnings.warn("Edge <{0}, {1}, {2}> is a flow edge that does not point to an attack-flow.  This is not part of the attack flow schema and as such the edge will not be added".format(source_id, type_id, target_id))
+                        logging.warning("Edge <{0}, {1}, {2}> is a flow edge that does not point to an attack-flow.  This is not part of the attack flow schema and as such the edge will not be added".format(source_id, type_id, target_id))
                     elif target_id == flow_id:
                         if type_id != "flow":
-                            warnings.warn("Edge <{0}, {1}, {2}> does not have type 'flow' but points to an attack-flow.  Adding it with 'flow' as the type instead of '{1}'.".format(source_id, type_id, target_id))
+                            logging.warning("Edge <{0}, {1}, {2}> does not have type 'flow' but points to an attack-flow.  Adding it with 'flow' as the type instead of '{1}'.".format(source_id, type_id, target_id))
                         flow_graph.add((self.namespace[source_id], self.namespace["flow"], self.namespace[target_id]))
                     elif target_id in actions:
                         flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
@@ -168,7 +168,7 @@ class flow():
                         flow_graph.add((self.namespace[type_id], RDFS.subPropertyOf, self.namespace["state_change"]))
                         flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
                     elif target_id in assets:
-                        warnings.warn("Edge <{0}, {1}, {2}> is between two assets.  It will be added as a contextual rather than causal (action->asset or asset->action) relationship".format(source_id, type_id, target_id))
+                        logging.warning("Edge <{0}, {1}, {2}> is between two assets.  It will be added as a contextual rather than causal (action->asset or asset->action) relationship".format(source_id, type_id, target_id))
                         flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
                         flow.graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
                         # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
