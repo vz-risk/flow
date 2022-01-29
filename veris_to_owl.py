@@ -1,3 +1,5 @@
+# python
+
 # License: MIT License
 # VERSION: 0.1
 
@@ -148,18 +150,19 @@ class veris2af():
     #                        g.add((veris_ns[quote(enum)], RDFS.label, Literal(enum)))
                         # otherwise just connect the enumerations directly
                         else:
-                            g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf, veris_ns[quote(parent)]))
+                            g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf, self.veris_ns[quote(parent)]))
                             g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.label, Literal(enum)))
                         # try and get the definition from the labels file and add it as a comment. Otherwise, pass.
-                        try:
-                            value = self.deepGetAttr(self.labels, f"{name}.{enum}"[1:].split("."))
-                            g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.comment, Literal(value)))
-                        except KeyError:
-                            pass
+                        if self.labels:
+                            try:
+                                value = self.deepGetAttr(self.labels, f"{name}.{enum}"[1:].split("."))
+                                g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.comment, Literal(value)))
+                            except KeyError:
+                                pass
                 else: # non-main enumerations
                     # create a thing with name + enum as a subclass of lists to store the enumerations
                     # create a object property type of name+enum w/ subclass of 'lists' to point to the enumeration
-                    g.add((self.veris_ns[quote(name + "Enum")], RDFS.subClassOf, veris_ns['lists']))
+                    g.add((self.veris_ns[quote(name + "Enum")], RDFS.subClassOf, self.veris_ns['lists']))
                     g.add((self.veris_ns[quote(name + "Enum")], RDFS.label, Literal(name)))
                     g.add((self.veris_ns[quote(name)], RDF.type, OWL.ObjectProperty))
                     g.add((self.veris_ns[quote(name)], RDFS.label, Literal(name)))
@@ -172,13 +175,14 @@ class veris2af():
                     g.add((self.veris_ns[quote(name)], RDFS.range, self.veris_ns[quote(name + "Enum")]))
                     for enum in d['enum']:
                         # based on https://stackoverflow.com/questions/18785499/modelling-owl-datatype-property-restrictions-with-a-list-of-values
-                        g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf,veris_ns[quote(name + "Enum")]))
+                        g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf, self.veris_ns[quote(name + "Enum")]))
                         g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.label, Literal(enum)))
-                        try:
-                            value = self.deepGetAttr(self.labels, f"{name}.{enum}"[1:].split("."))
-                            g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.comment, Literal(value)))
-                        except KeyError:
-                            pass
+                        if self.labels:
+                            try:
+                                value = self.deepGetAttr(self.labels, f"{name}.{enum}"[1:].split("."))
+                                g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.comment, Literal(value)))
+                            except KeyError:
+                                pass
                     if parent == "":
                         g.add((self.veris_ns[quote(child)], RDFS.domain, self.af_ns["attack-flow"]))
                     elif parent in self.anchor_map:
@@ -272,20 +276,20 @@ AF_NAMESPACE = "https://vz-risk.github.io/flow/attack-flow#"
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=descriptionText)
-    parser.add_argument("-l","--log_level",choices=["critical","warning","info","debug"], help="Minimum logging level to display", default="info")
-    parser.add_argument('--log_file', help='Location of log file', default=None)
     descriptionText = """This script creates an OWL VERIS schema from the VERIS 
 schema file and labels file. Optionally, it can also add the attack flow schema
 and the veris to Mitre att&ck (tm) mapptings."""
+    parser = argparse.ArgumentParser(description=descriptionText)
+    parser.add_argument("-l","--log_level",choices=["critical","warning","info","debug"], help="Minimum logging level to display", default="info")
+    parser.add_argument('--log_file', help='Location of log file', default=None)
     parser.add_argument("--veris_ns", help="String representing the namespace for VERIS.", default="https://veriscommunity.net/attack-flow#")
     parser.add_argument("-m","--mergedfile", help="The fully merged json schema file.", required=True)
     parser.add_argument("--labels",
                         help="the labels file. (Normally '../verisc-labels.json'.", required=True) #, default=DEFAULTLABELS)
     parser.add_argument("-o", "--output",
                         help="the location to save the VERIS json-ld file. (Normally '../verisc-owl.json'.)", required=True) #, default=MERGED)
-    parser.add_argument("--af", help="The filename of the Attack Flow graph file in json-ld format.", default="https://vz-risk.github.io/flow/attack-flow#")
-    parser.add_argument("--af_ns", help="String representing the namespace for attack flow. (should match what's in the 'af' file.", default=None)
+    parser.add_argument("--af", help="The filename of the Attack Flow graph file in json-ld format.", default=None)
+    parser.add_argument("--af_ns", help="String representing the namespace for attack flow. (should match what's in the 'af' file.", default="https://vz-risk.github.io/flow/attack-flow#")
     parser.add_argument("--atk_map", help="The json file mapping between veris and att&ck.", default=None)
     parser.add_argument("--atk_ns", help="String representing the namespace for att&ck.", default=None)
     args = parser.parse_args()
@@ -307,8 +311,8 @@ and the veris to Mitre att&ck (tm) mapptings."""
 
     logging.info("Initialize the class.")
     veris_owl = veris2af(
-        veris=args.mergedfile,
-        veris_labels=args.labels,
+        veris=schema,
+        veris_labels=labels,
         veris_namespace=args.veris_ns,
         attack_flow_namespace=args.af_ns
     )
@@ -326,6 +330,6 @@ and the veris to Mitre att&ck (tm) mapptings."""
 
     logging.info("Writting output.")
     with open(args.output, 'w') as filehandle:
-        json.dump(filehandle, veris_owl.veris_graph.serialize(format="json-ld"))
+        filehandle.write(veris_owl.veris_graph.serialize(format="json-ld"))
 
 
