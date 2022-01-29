@@ -57,15 +57,21 @@ class veris2af():
     veris_graph = Graph()
 
     def __init__(self,
+            version="1.0.0",
             veris=None,
             veris_labels=None,
             veris_namespace="https://veriscommunity.net/attack-flow#",
-            attack_flow_namespace="https://vz-risk.github.io/flow/attack-flow#"
+            attack_flow_namespace="https://vz-risk.github.io/flow/attack-flow#",
+            veris_version="",
+            veris_name=""
         ):
         self.schema = veris
         self.labels = veris_labels
         self.veris_ns = Namespace(veris_namespace)
         self.af_ns = Namespace(attack_flow_namespace)
+        self.veris_ver = veris_version
+        self.ver = version
+        self.veris_name = veris_name
 
         self.anchor_map = {
             "action": self.af_ns["action"],
@@ -85,30 +91,31 @@ class veris2af():
         #print(f"starting {name}")
         try:
             #parent = name.split(".")[-2]
-            parent = ".".join(name.split(".")[:-1])
+            parent = ".".join(name.split(".")[1:-1])
         except:
             parent = ""
         child = name.split(".")[-1]
         references = set(g.subjects()).union(g.objects()).union(g.predicates())
+        #print("d: {0}, lbl: {1}, name: {2}, parent: {3}, child: {4}".format(d, lbl, name, parent, child))
         try:
             # for objects we'll recurse into them
             if d['type'] == "object":
                 lbl = lbl + "properties."
                 # for most things create the parent-child paths
-                if child != "" and child not in self.anchor_map: # don't include things that are mapped to other classes
+                if child != "" and child[1:] not in self.anchor_map: # don't include things that are mapped to other classes
                     # If it's the root, link to properties
                     if parent == "":
-                        g.add((self.veris_ns[quote(name)], RDFS.subClassOf, self.af_ns["property"]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.subClassOf, self.af_ns["property"]))
                     # if the parent is an one of the special places to anchor, replace the parent with the anchor
                     elif parent in self.anchor_map:
-                        g.add((self.veris_ns[quote(name)], RDFS.subClassOf, self.anchor_map[parent]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.subClassOf, self.anchor_map[parent]))
                     # else link the parent and the child
                     else:
-                        g.add((self.veris_ns[quote(name)], RDFS.subClassOf, self.veris_ns[quote(parent)]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.subClassOf, self.veris_ns[quote(parent)]))
                     if 'description' in d:
-                        g.add((self.veris_ns[quote(name)], RDFS.comment, Literal(d['description'])))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.comment, Literal(d['description'])))
                     # label the child
-                    g.add((self.veris_ns[quote(name)], RDFS.label, Literal(child)))
+                    g.add((self.veris_ns[quote(name[1:])], RDFS.label, Literal(child)))
                 # recurse into the properties
                 for k, v in d['properties'].items():
                     #print([k, v])
@@ -122,19 +129,19 @@ class veris2af():
                 # if the string doesn't have options, add it as a data property
                 if 'enum' not in d: # literals
                     # If it doesn't already exist, give it a type, mark it a Data Property, and give it a literal name. Then link it to it's parent
-                    if self.veris_ns[quote(name)] not in references:
-                        g.add((self.veris_ns[quote(name)], RDF.type, OWL.DatatypeProperty))
-                        g.add((self.veris_ns[quote(name)], RDFS.range, self.type_map[d['type']]))
-                        g.add((self.veris_ns[quote(name)], RDFS.label, Literal(child)))
+                    if self.veris_ns[quote(name[1:])] not in references:
+                        g.add((self.veris_ns[quote(name[1:])], RDF.type, OWL.DatatypeProperty))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.range, self.type_map[d['type']]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.label, Literal(child)))
                         if 'description' in d:
-                            g.add((self.veris_ns[quote(name)], RDFS.comment, Literal(d['description'])))
+                            g.add((self.veris_ns[quote(name[1:])], RDFS.comment, Literal(d['description'])))
                     # Link to the appropriate parent (top of namespace, anchor point, or parent)
                     if parent == "":
-                        g.add((self.veris_ns[quote(name)], RDFS.domain, self.af_ns["attack-flow"]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.af_ns["attack-flow"]))
                     elif parent in self.anchor_map:
-                        g.add((self.veris_ns[quote(name)], RDFS.domain, self.anchor_map[parent]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.anchor_map[parent]))
                     else:
-                        g.add((self.veris_ns[quote(name)], RDFS.domain, self.veris_ns[quote(parent)]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.veris_ns[quote(parent)]))
                 # if this is one of the main enumerations.
                 elif child == "variety":
                     for enum in d['enum']:
@@ -142,45 +149,45 @@ class veris2af():
                         if parent == "assets":
                             #if enum != "Other" and enum != "Unknown": # because unknown/other don't start with a a letter representing the parent
                             if True:
-                                g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf, self.veris_ns[quote(self.asset_map[enum[0]])]))
-                                g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.label, Literal(enum[4:])))
+                                g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.subClassOf, self.veris_ns[quote(self.asset_map[enum[0]])]))
+                                g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.label, Literal(enum[4:])))
                         # In case we have to handle attribute differently since it's a list of objects...
     #                    elif name.startswith(".attribute"):
     #                        g.add((veris_ns[quote(enum)], RDFS.subPropertyOf, veris_ns[quote(parent)]))
     #                        g.add((veris_ns[quote(enum)], RDFS.label, Literal(enum)))
                         # otherwise just connect the enumerations directly
                         else:
-                            g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf, self.veris_ns[quote(parent)]))
-                            g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.label, Literal(enum)))
+                            g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.subClassOf, self.veris_ns[quote(parent)]))
+                            g.add((self.veris_ns[quote(f"{name}.{enum}")[1:]], RDFS.label, Literal(enum)))
                         # try and get the definition from the labels file and add it as a comment. Otherwise, pass.
                         if self.labels:
                             try:
                                 value = self.deepGetAttr(self.labels, f"{name}.{enum}"[1:].split("."))
-                                g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.comment, Literal(value)))
+                                g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.comment, Literal(value)))
                             except KeyError:
                                 pass
                 else: # non-main enumerations
                     # create a thing with name + enum as a subclass of lists to store the enumerations
                     # create a object property type of name+enum w/ subclass of 'lists' to point to the enumeration
-                    g.add((self.veris_ns[quote(name + "Enum")], RDFS.subClassOf, self.veris_ns['lists']))
-                    g.add((self.veris_ns[quote(name + "Enum")], RDFS.label, Literal(name)))
-                    g.add((self.veris_ns[quote(name)], RDF.type, OWL.ObjectProperty))
-                    g.add((self.veris_ns[quote(name)], RDFS.label, Literal(name)))
+                    g.add((self.veris_ns[quote(name[1:] + "Enum")], RDFS.subClassOf, self.veris_ns['lists']))
+                    g.add((self.veris_ns[quote(name[1:] + "Enum")], RDFS.label, Literal(name)))
+                    g.add((self.veris_ns[quote(name[1:])], RDF.type, OWL.ObjectProperty))
+                    g.add((self.veris_ns[quote(name[1:])], RDFS.label, Literal(name)))
                     if parent == "":
-                        g.add((self.veris_ns[quote(name)], RDFS.domain, self.af_ns["attack-flow"]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.af_ns["attack-flow"]))
                     elif parent in self.anchor_map:
-                        g.add((self.veris_ns[quote(name)], RDFS.domain, self.anchor_map[parent]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.anchor_map[parent]))
                     else:
-                        g.add((self.veris_ns[quote(name)], RDFS.domain, self.veris_ns[quote(parent)]))
-                    g.add((self.veris_ns[quote(name)], RDFS.range, self.veris_ns[quote(name + "Enum")]))
+                        g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.veris_ns[quote(parent)]))
+                    g.add((self.veris_ns[quote(name[1:])], RDFS.range, self.veris_ns[quote(name[1:] + "Enum")]))
                     for enum in d['enum']:
                         # based on https://stackoverflow.com/questions/18785499/modelling-owl-datatype-property-restrictions-with-a-list-of-values
-                        g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.subClassOf, self.veris_ns[quote(name + "Enum")]))
-                        g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.label, Literal(enum)))
+                        g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.subClassOf, self.veris_ns[quote(name[1:] + "Enum")]))
+                        g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.label, Literal(enum)))
                         if self.labels:
                             try:
                                 value = self.deepGetAttr(self.labels, f"{name}.{enum}"[1:].split("."))
-                                g.add((self.veris_ns[quote(f"{name}.{enum}")], RDFS.comment, Literal(value)))
+                                g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.comment, Literal(value)))
                             except KeyError:
                                 pass
                     if parent == "":
@@ -202,6 +209,14 @@ class veris2af():
         # Start Graph
         if veris is None:
             veris = self.veris_graph
+
+        # Establish Ontology
+        comment = "The Vocabulary for Event Recording and Incident Sharing (VERIS) ontology formatted as an OWL graph rather than a JSON schema.  This facilitates use with Attack Flow, providing, Actions, Assets, and other properties."
+        veris.add((URIRef(str(self.veris_ns)), RDF.type, OWL.Ontology))
+        veris.add((URIRef(str(self.veris_ns)), OWL.versionIRI, URIRef(str(self.veris_ns)[:-1] + "/" + self.ver + "#")))
+        veris.add((URIRef(str(self.veris_ns)), RDFS.comment, Literal(comment)))
+        veris.add((URIRef(str(self.veris_ns)), RDFS.label, Literal((self.veris_name + " " + self.veris_ver).strip())))
+        veris.add((URIRef(str(self.veris_ns)), OWL.versionInfo, Literal(self.ver)))
 
         # Add top level stuff
         veris.add((self.veris_ns['lists'], RDFS.subClassOf, self.af_ns["property"])) # list holder within properties
@@ -240,7 +255,7 @@ class veris2af():
                 if "variety" in enum:
                     veris.add((atk_ns[k], OWL.equivalentClass, self.veris_ns[quote(enum.split(".")[-1])]))
                 else:
-                    veris.add((atk_ns[k], OWL.equivalentClass, self.veris_ns[quote("." + enum)]))
+                    veris.add((atk_ns[k], OWL.equivalentClass, self.veris_ns[quote(enum)]))
 
         # get the table fixed up. (It's kinda a mess the way it's created)
         veris_atk = pd.json_normalize(veris_atk_map['veris_to_attack'], sep=".").to_dict(orient="records")[0]
@@ -259,7 +274,7 @@ class veris2af():
             if "variety" in enum:
                 veris.add((self.veris_ns[quote(enum.split(".")[-1])], OWL.equivalentClass, atk_ns[k]))
             else:
-                veris.add((self.eris_ns[quote("." + enum)], OWL.equivalentClass, atk_ns[k]))
+                veris.add((self.eris_ns[quote(enum)], OWL.equivalentClass, atk_ns[k]))
 
         self.veris_graph = veris
 
@@ -282,7 +297,10 @@ and the veris to Mitre att&ck (tm) mapptings."""
     parser = argparse.ArgumentParser(description=descriptionText)
     parser.add_argument("-l","--log_level",choices=["critical","warning","info","debug"], help="Minimum logging level to display", default="info")
     parser.add_argument('--log_file', help='Location of log file', default=None)
+    parser.add_argument("--version", help="The version of veris OWL.", default="1.0.0")
     parser.add_argument("--veris_ns", help="String representing the namespace for VERIS.", default="https://veriscommunity.net/attack-flow#")
+    parser.add_argument("--veris_version", help="The version of veris VERIS.  (1.3.6 as of Jan 2022.)", default="")
+    parser.add_argument("--veris_name", help="The flavor of veris in use.  (Usually 'verisc', 'vcdb', or 'dbir'.)", default="verisc")
     parser.add_argument("-m","--mergedfile", help="The fully merged json schema file.", required=True)
     parser.add_argument("--labels",
                         help="the labels file. (Normally '../verisc-labels.json'.", required=True) #, default=DEFAULTLABELS)
@@ -314,7 +332,10 @@ and the veris to Mitre att&ck (tm) mapptings."""
         veris=schema,
         veris_labels=labels,
         veris_namespace=args.veris_ns,
-        attack_flow_namespace=args.af_ns
+        attack_flow_namespace=args.af_ns,
+        version=args.version,
+        veris_name=args.veris_name,
+        veris_version=args.veris_version
     )
 
     logging.info("Convert the schema.")
