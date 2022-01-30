@@ -224,7 +224,7 @@ class veris2af():
 
         for asset in self.asset_map: # assets (since they aren't actually in VERIS)
             veris.add((self.veris_ns[quote('asset.assets.' + self.asset_map[asset])], RDFS.subClassOf, self.veris_ns['asset.assets']))
-            veris.add((self.veris_ns[quote('asset.assets.' + self.asset_map[asset])], RDFS.label, Literal(self.asset_map[asset].capitalize())))
+            veris.add((self.veris_ns[quote('asset.assets.' + self.asset_map[asset])], RDFS.label, Literal(self.asset_map[asset])))
         veris.add((self.veris_ns['asset.assets'], RDFS.subClassOf, self.af_ns['asset']))
 
         # Convert VERIS to OWL
