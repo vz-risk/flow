@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://vz-risk.github.io/flow/attack-flow#"
+     xml:base="https://vz-risk.github.io/flow/attack-flow"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="https://vz-risk.github.io/flow/attack-flow#">
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Action-Asset model</rdfs:comment>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.0.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#described_by -->
+
+    <owl:ObjectProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#described_by">
+        <rdfs:range rdf:resource="https://vz-risk.github.io/flow/attack-flow#property"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#flow -->
+
+    <owl:ObjectProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#flow">
+        <rdfs:subPropertyOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#described_by"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="https://vz-risk.github.io/flow/attack-flow#attack-flow"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#state_change -->
+
+    <owl:ObjectProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#state_change">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="https://vz-risk.github.io/flow/attack-flow#asset"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#state_requirements -->
+
+    <owl:ObjectProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#state_requirements">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#asset"/>
+        <rdfs:range rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#author -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#author">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#attack-flow"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The author of the Attack Flow.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#confidence -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#confidence">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:comment>Float from 0 to 1 or distribution representing the confidence that the action succeeded. Assumed to be 1 (100% ~ ground truth) if not included.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#created -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#created">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#attack-flow"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>Creation time of the Attack Flow. (RFC-3339 format, e.g. YYYY-MM-DDThh:mm:ssZ)</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#description -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#description">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The description of the Attack Flow or action.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#description.action -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#description.action">
+        <rdfs:subPropertyOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#description"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#description.attack-flow -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#description.attack-flow">
+        <rdfs:subPropertyOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#description"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#attack-flow"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#logic_operator -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#logic_operator">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>`AND` means that all input nodes/trees must be true in order for this Action to succeed. `OR` means that one input node/tree must be true in order for this Action to succeed. The returned &apos;success&apos; state should match the &apos;state&apos; used on assets. TBD extension point</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#logic_operator_language -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#logic_operator_language">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#name -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#name">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The name of the attack flow or attack action.  For actions, may be an ATT&amp;CK technique name.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#name.action -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#name.action">
+        <rdfs:subPropertyOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#name"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#name.attack-flow -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#name.attack-flow">
+        <rdfs:subPropertyOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#name"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#attack-flow"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#reference -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#reference">
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>A reference for the action. May be a URL to an ATT&amp;CK technique.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#state -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#state">
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#asset"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#succeeded -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#succeeded">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#timestamp -->
+
+    <owl:DatatypeProperty rdf:about="https://vz-risk.github.io/flow/attack-flow#timestamp">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vz-risk.github.io/flow/attack-flow#action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>The timestamp when this action was observed. (RFC-3339 format, e.g. YYYY-MM-DDThh:mm:ssZ)</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#action -->
+
+    <owl:Class rdf:about="https://vz-risk.github.io/flow/attack-flow#action">
+        <owl:disjointWith rdf:resource="https://vz-risk.github.io/flow/attack-flow#property"/>
+    </owl:Class>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#asset -->
+
+    <owl:Class rdf:about="https://vz-risk.github.io/flow/attack-flow#asset">
+        <rdfs:subClassOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#property"/>
+        <rdfs:comment>It is acceptable to sub-class assets</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#attack-flow -->
+
+    <owl:Class rdf:about="https://vz-risk.github.io/flow/attack-flow#attack-flow">
+        <rdfs:subClassOf rdf:resource="https://vz-risk.github.io/flow/attack-flow#property"/>
+    </owl:Class>
+    
+
+
+    <!-- https://vz-risk.github.io/flow/attack-flow#property -->
+
+    <owl:Class rdf:about="https://vz-risk.github.io/flow/attack-flow#property"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

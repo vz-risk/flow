@@ -10,7 +10,7 @@ from jsonschema import validate, ValidationError # validate json schema
 from collections import defaultdict
 import logging
 # may want to replace owlrl with reasonable when reasonable is more complete as owlrl is slow.
-#from owlrl import DeductiveClosure, OWLRL_Semantics, RDFS_OWLRL_Semantics 
+from owlrl import DeductiveClosure, OWLRL_Semantics, RDFS_OWLRL_Semantics 
 #import reasonable # https://lib.rs/crates/reasonable
 
 class flow():
@@ -492,3 +492,4 @@ class flow():
         """Reason over the flow_rdf to add inferred triples."""
         ### OWL-RL
         DeductiveClosure(RDFS_OWLRL_Semantics).expand(self.flow_rdf)
+
