@@ -42,7 +42,8 @@ class veris2af():
         "M": "media",
         "E": "embedded",
         "N": "network",
-        "O": "Other"
+        "O": "Other",
+        "Unknown": "Unknown"
     }
     type_map = {
         "string": XSD.string,
@@ -102,7 +103,7 @@ class veris2af():
             if d['type'] == "object":
                 lbl = lbl + "properties."
                 # for most things create the parent-child paths
-                if child != "" and child[1:] not in self.anchor_map: # don't include things that are mapped to other classes
+                if child != "" and child not in self.anchor_map: # don't include things that are mapped to other classes
                     # If it's the root, link to properties
                     if parent == "":
                         g.add((self.veris_ns[quote(name[1:])], RDFS.subClassOf, self.af_ns["property"]))
@@ -146,10 +147,10 @@ class veris2af():
                 elif child == "variety":
                     for enum in d['enum']:
                         # Assets is special so we have to treat it special
-                        if parent == "assets":
-                            #if enum != "Other" and enum != "Unknown": # because unknown/other don't start with a a letter representing the parent
-                            if True:
-                                g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.subClassOf, self.veris_ns[quote(self.asset_map[enum[0]])]))
+                        if parent == "asset.assets":
+                            if enum != "Other" and enum != "Unknown": # because unknown/other don't start with a a letter representing the parent
+                            #if True:
+                                g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.subClassOf, self.veris_ns[quote("asset.assets." + self.asset_map[enum[0]])]))
                                 g.add((self.veris_ns[quote(f"{name}.{enum}"[1:])], RDFS.label, Literal(enum[4:])))
                         # In case we have to handle attribute differently since it's a list of objects...
     #                    elif name.startswith(".attribute"):
@@ -170,9 +171,9 @@ class veris2af():
                     # create a thing with name + enum as a subclass of lists to store the enumerations
                     # create a object property type of name+enum w/ subclass of 'lists' to point to the enumeration
                     g.add((self.veris_ns[quote(name[1:] + "Enum")], RDFS.subClassOf, self.veris_ns['lists']))
-                    g.add((self.veris_ns[quote(name[1:] + "Enum")], RDFS.label, Literal(name)))
+                    g.add((self.veris_ns[quote(name[1:] + "Enum")], RDFS.label, Literal(name[1:])))
                     g.add((self.veris_ns[quote(name[1:])], RDF.type, OWL.ObjectProperty))
-                    g.add((self.veris_ns[quote(name[1:])], RDFS.label, Literal(name)))
+                    g.add((self.veris_ns[quote(name[1:])], RDFS.label, Literal(name[1:])))
                     if parent == "":
                         g.add((self.veris_ns[quote(name[1:])], RDFS.domain, self.af_ns["attack-flow"]))
                     elif parent in self.anchor_map:
@@ -220,8 +221,11 @@ class veris2af():
 
         # Add top level stuff
         veris.add((self.veris_ns['lists'], RDFS.subClassOf, self.af_ns["property"])) # list holder within properties
+
         for asset in self.asset_map: # assets (since they aren't actually in VERIS)
-            veris.add((self.veris_ns[quote(self.asset_map[asset])], RDFS.subClassOf, self.veris_ns['assets']))
+            veris.add((self.veris_ns[quote('asset.assets.' + self.asset_map[asset])], RDFS.subClassOf, self.veris_ns['asset.assets']))
+            veris.add((self.veris_ns[quote('asset.assets.' + self.asset_map[asset])], RDFS.label, Literal(self.asset_map[asset].capitalize())))
+        veris.add((self.veris_ns['asset.assets'], RDFS.subClassOf, self.af_ns['asset']))
 
         # Convert VERIS to OWL
         self.veris_graph = self.veris_to_owl_r(self.schema, "", "", veris)
