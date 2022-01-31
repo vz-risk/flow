@@ -9,6 +9,12 @@ import uuid
 from urllib.parse import quote, unquote
 import logging
 import re
+import os
+from fnmatch import fnmatch
+from tqdm import tqdm
+import argparse
+from datetime import datetime
+
 
 class i2af():
     af_ns = None
@@ -17,17 +23,12 @@ class i2af():
     data_props = None
     obj_props = None
     anchor_map = None
-    # below are specific to each instance. May not want to keep them in the class
-    enum_iterator = defaultdict(int)
-    instances = defaultdict(set)
-    i_ns = None
-    flowURI = None
-    incident = None
+    enum_iterator = dict()
 
 
     def __init__(
         self,
-        schema_filename,
+        veris_schema_filename,
         attack_flow_namespace="https://vz-risk.github.io/flow/attack-flow#",
         veris_namespace="https://veriscommunity.net/attack-flow#"
         ):
@@ -38,7 +39,7 @@ class i2af():
 
         # open veris schema
         veris = Graph()
-        veris.parse(schema_filename)
+        veris.parse(veris_schema_filename)
         # Get object and data properties so we know which are which when parsing them out of the incident
         query = ("""SELECT DISTINCT  ?p 
         WHERE { 
@@ -65,53 +66,53 @@ class i2af():
         }
 
 
-    def recurse_instances(self, d, lbl, owl, exclusions=[]):
+    def recurse_instances(self, d, lbl, owl, i_ns, flowURI, incident, exclusions=[]):
         for k, v in d.items():
             try:
                 if type(v) in [OrderedDict, dict]:
                     #keys = keys.union(recurse_keys(v, (lbl + (k,)), keys))
-                    self.recurse_instances(v, (lbl + (k,)), owl, exclusions=exclusions)
+                    self.recurse_instances(v, (lbl + (k,)), owl, i_ns=i_ns, flowURI=flowURI, incident=incident, exclusions=exclusions)
                 elif type(v) is list: 
                     for item in v:
                         if type(item) == dict:
                             #print("label: {0}, key: {1}, item: {2}".format(lbl, k, item))
-                            self.recurse_instances(item, (lbl + (k,)), owl, exclusions=exclusions)
+                            self.recurse_instances(item, (lbl + (k,)), owl, i_ns=i_ns, flowURI=flowURI, incident=incident, exclusions=exclusions)
                         elif k == "variety":
                             # convert it to a class instance of the parent class
                             # add it to the incident
-                            self.enum_iterator[".".join(lbl + (k, item))] += 1 # `lbl + (k, item)` used to be `item`
-                            instance_name = quote(item + "_" + str(self.enum_iterator[".".join(lbl + (k, item))])) # `".".join(lbl + (k, item))` used to be `item`
+                            self.enum_iterator[flowURI][".".join(lbl + (k, item))] += 1 # `lbl + (k, item)` used to be `item`
+                            instance_name = quote(item + "_" + str(self.enum_iterator[flowURI][".".join(lbl + (k, item))])) # `".".join(lbl + (k, item))` used to be `item`
                             
                             # define instance as an instance and an instance of something
-                            owl.add((self.i_ns[instance_name], RDF.type, OWL.NamedIndividual))
-                            owl.add((self.i_ns[instance_name], RDF.type, self.anchor_map.get(".".join(lbl), veris_ns[quote(".".join(lbl + (k,item)))])))
+                            owl.add((i_ns[instance_name], RDF.type, OWL.NamedIndividual))
+                            owl.add((i_ns[instance_name], RDF.type, self.anchor_map.get(".".join(lbl), self.veris_ns[quote(".".join(lbl + (k,item)))])))
                             
                             # Connect instance to flow
-                            owl.add((self.i_ns[instance_name], self.af_ns['flow'], self.flowURI))
+                            owl.add((i_ns[instance_name], self.af_ns['flow'], flowURI))
 
                             # if action:
                             if lbl[0] == "action":
                                 # (type) = 'action'
                                 # name = instance_name
                                 # description
-                                owl.add((self.i_ns[instance_name], self.af_ns["description.action"], Literal(self.incident["action"][lbl[1]].get("notes", "no decription"))))
+                                owl.add((i_ns[instance_name], self.af_ns["description.action"], Literal(incident["action"][lbl[1]].get("notes", "no decription"))))
                                 # logic_operator = ""
-                                owl.add((self.i_ns[instance_name], self.af_ns['logic_operator'], Literal("OR")))
+                                owl.add((i_ns[instance_name], self.af_ns['logic_operator'], Literal("OR")))
                 elif k == "variety":
                     # convert it to a class instance of the parent class
                     # add it to the incident
                     instance_name = re.sub("[^0-9a-zA-Z_.\-~]+", "_", ".".join(lbl + (k, v))) # '".".join(lbl + (k, v))' used to be `v`
                     if lbl[0] == "asset" and v not in ["Unknown", "Other"]:
                         instance_name = instance_name[4:]
-                    self.enum_iterator[instance_name] += 1
-                    instance_name = quote(instance_name + "_" + str(self.enum_iterator[instance_name]))
+                    self.enum_iterator[flowURI][instance_name] += 1
+                    instance_name = quote(instance_name + "_" + str(self.enum_iterator[flowURI][instance_name]))
 
                     # define instance as an instance and an instance of something
-                    owl.add((self.i_ns[instance_name], RDF.type, OWL.NamedIndividual))
-                    owl.add((self.i_ns[instance_name], RDF.type, self.anchor_map.get(".".join(lbl), veris_ns[quote(".".join(lbl + (k,v)))])))
+                    owl.add((i_ns[instance_name], RDF.type, OWL.NamedIndividual))
+                    owl.add((i_ns[instance_name], RDF.type, self.anchor_map.get(".".join(lbl), self.veris_ns[quote(".".join(lbl + (k,v)))])))
 
                     # Connect instance to flow
-                    owl.add((self.i_ns[instance_name], self.af_ns['flow'], self.flowURI))
+                    owl.add((i_ns[instance_name], self.af_ns['flow'], flowURI))
             except:
                 print("label: {0}, key: {1}, value: {2}".format(lbl, k, v))
                 raise
@@ -119,11 +120,11 @@ class i2af():
         return owl
                             
                             
-    def recurse_properties(self, d, lbl, owl, exclusions=[]):
+    def recurse_properties(self, d, lbl, owl, instances, flowURI, exclusions=[]):
         for k, v in d.items():
             try:
                 if type(v) in [OrderedDict, dict]:
-                    owl = self.recurse_properties(v, (lbl + (k,)), owl, exclusions=exclusions)
+                    owl = self.recurse_properties(v, (lbl + (k,)), owl, instances=instances, flowURI=flowURI, exclusions=exclusions)
                     
                 elif k == "variety":
                     pass # varieties are all instances and should already be handled
@@ -131,29 +132,29 @@ class i2af():
                 elif (type(v) is list):
                     for item in v:
                         if type(item) == dict:
-                            self.recurse_properties(item, (lbl + (k,)), owl, exclusions=exclusions)
+                            self.recurse_properties(item, (lbl + (k,)), owl, instances=instances, flowURI=flowURI, exclusions=exclusions)
                         else:
                             # define it's flow
-                            owl.add((self.veris_ns[quote(".".join(lbl + (k, item)))], self.af_ns['flow'], self.flowURI))
+                            owl.add((self.veris_ns[quote(".".join(lbl + (k, item)))], self.af_ns['flow'], flowURI))
                             
                             # if we know what instance it goes to, connect it.
-                            if str(self.veris_ns[quote(".".join(lbl))]) in self.instances.keys() and len(self.instances[str(self.veris_ns[quote(".".join(lbl))])]) == 1:
-                                owl.add((self.instances[str(self.veris_ns[quote(".".join(lbl))])][0], self.veris_ns[quote(".".join(lbl + (k, )))], self.veris_ns[quote(".".join(lbl + (k, item)))]))
+                            if str(self.veris_ns[quote(".".join(lbl))]) in instances.keys() and len(instances[str(self.veris_ns[quote(".".join(lbl))])]) == 1:
+                                owl.add((instances[str(self.veris_ns[quote(".".join(lbl))])][0], self.veris_ns[quote(".".join(lbl + (k, )))], self.veris_ns[quote(".".join(lbl + (k, item)))]))
                 elif (".".join((lbl + (k,str(v)))) in exclusions):
                     pass
                 
                 else:
                     if quote(".".join(lbl + (k,))) in self.obj_props:
-                        if str(self.veris_ns[quote(".".join(lbl))]) in self.instances.keys() and len(self.instances[str(self.veris_ns[quote(".".join(lbl))])]) == 1:
-                            owl.add((self.instances[str(self.veris_ns[quote(".".join(lbl))])][0], self.veris_ns[quote(".".join(lbl + (k, )))], self.veris_ns[quote(".".join(lbl + (k, v)))]))
+                        if str(self.veris_ns[quote(".".join(lbl))]) in instances.keys() and len(instances[str(self.veris_ns[quote(".".join(lbl))])]) == 1:
+                            owl.add((instances[str(self.veris_ns[quote(".".join(lbl))])][0], self.veris_ns[quote(".".join(lbl + (k, )))], self.veris_ns[quote(".".join(lbl + (k, v)))]))
                         else:
-                            owl.add((self.veris_ns[quote(".".join(lbl[:-1]))], self.af_ns['flow'], self.flowURI))
+                            owl.add((self.veris_ns[quote(".".join(lbl[:-1]))], self.af_ns['flow'], flowURI))
                             owl.add((self.veris_ns[quote(".".join(lbl[:-1]))], self.veris_ns[quote(".".join(lbl + (k, )))], self.veris_ns[quote(".".join(lbl + (k, v)))]))
                     elif quote(".".join(lbl + (k,))) in self.data_props:
-                        if str(self.veris_ns[quote(".".join(lbl))]) in self.instances.keys() and len(self.instances[str(self.veris_ns[quote(".".join(lbl))])]) == 1:
-                            owl.add((self.instances[str(self.veris_ns[quote(".".join(lbl))])][0], self.veris_ns[quote(".".join(lbl + (k, )))], Literal(v)))
+                        if str(self.veris_ns[quote(".".join(lbl))]) in instances.keys() and len(instances[str(self.veris_ns[quote(".".join(lbl))])]) == 1:
+                            owl.add((instances[str(self.veris_ns[quote(".".join(lbl))])][0], self.veris_ns[quote(".".join(lbl + (k, )))], Literal(v)))
                         else:
-                            owl.add((self.veris_ns[quote(".".join(lbl))], self.af_ns['flow'], self.flowURI))
+                            owl.add((self.veris_ns[quote(".".join(lbl))], self.af_ns['flow'], flowURI))
                             owl.add((self.veris_ns[quote(".".join(lbl))], self.veris_ns[quote(".".join(lbl + (k, )))], Literal(v)))
                     else:
                         logging.warning("{0} is not in the object property or datatype property lists.".format(".".join(lbl + (k,))))
@@ -202,11 +203,6 @@ class i2af():
             # this is important because if we have multiple occurrences of any of these things it'll be hard
             # to tell what step they go with.
             occurrence_counts = {
-    #            "incident": {
-    #                "action": defaultdict(int),
-    #                "asset": defaultdict(int),
-    #                "attribute": defaultdict(int)
-    #            },
                 "oincident": {
                     "action": defaultdict(list),
                     "asset": defaultdict(list),
@@ -219,34 +215,9 @@ class i2af():
                 occurrence_counts['oincident']['asset'][asset[1].split(".")[3].split("%20-%20")[0]].append(asset[0])
             for attribute in [(item[0], item[1].split("#")[1]) for item in res if item[1].split("#")[1].startswith("attribute")]:
                 occurrence_counts['oincident']['attribute'][attribute[1].split(".")[1]].append(attribute[0])
-    #        for step in incident['plus']['event_chain']:
-    #            occurrence_counts['incident']['action'][step.get("action", "Unknown")] += 1
-    #            occurrence_counts['incident']['asset'][step.get("asset", "Unknown")] += 1
-    #            occurrence_counts['incident']['attribute'][step.get("attribute", "Unknown")] += 1
-                
-            #print(occurrence_counts)
-
-    ### Block below using it seems unneeded
-    #        # One way we can parse is, even if something like an asset occurs multiple places in the 
-    #        # event chain, if there's only 1 instance of an asset, we know that asset goes to each
-    #        # both locations in the chain.
-    #        dup_but_can_parse = True
-    #        for a in ['action', 'asset', 'attribute']:
-    #            for k,v in occurrence_counts['incident'][a].items():
-    #                if v > 1 and len(occurrence_counts['oincident'][a][event_chain_lookup[k]]) > 1:
-    #                    dup_but_can_parse = False
-
             
-            # first we'll check if there's just 1 step.  If there's just one step we know everything goes to that step.
-            ### NOTE: I think this is duplicative with below
-            #if len(incident['plus']['event_chain']) == 1 and len(actions) == 1 and len(assets) == 1:
-            #    print("can parse because only 1 step")
-            
-
             # If there's more steps, but each action/asset/attribute only occur once in it, we can map instances to it
-            if (#all([v <= 1 for k,v in occurrence_counts['incident']['action'].items()]) and 
-                #  all([v <= 1 for k,v in occurrence_counts['incident']['asset'].items()]) and
-                #  all([v <= 1 for k,v in occurrence_counts['incident']['attribute'].items()]) and 
+            if (
                   all([len(v) <= 1 for k,v in occurrence_counts['oincident']['action'].items()]) and 
                   all([len(v) <= 1 for k,v in occurrence_counts['oincident']['asset'].items()]) and 
                   all([len(v) <= 1 for k,v in occurrence_counts['oincident']['attribute'].items()])):
@@ -259,18 +230,14 @@ class i2af():
                     if all([action, asset]):
                         owl.add((URIRef(attribute), RDFS.subPropertyOf, self.af_ns['state_change']))
                         owl.add((URIRef(action), URIRef(attribute), URIRef(asset)))
-                    if old_asset:
-                        owl.add((URIRef(old_asset), self.veris_ns["attribute.unknown"], URIRef(action)))
+                    try:
+                        if old_asset and action:
+                            owl.add((URIRef(old_asset), self.veris_ns["attribute.unknown"], URIRef(action)))
+                    except:
+                        print(f"{old_asset}, {action}")
+                        raise
                     old_asset = asset
-                    
 
-    ### I think below is equivalent to the above block with the 3 lines commented out so unneeded
-    #        # as noted above, if we have duplicates, we can still map to it as noted above
-    #        elif dup_but_can_parse:
-    #            for step in event_chain
-    #            print("can parse because even though duplicate items, they link to only one instance")
-
-        
         # if only one action & asset, you can assume the sequence
         elif len(assets) == 1 and len(actions) == 1:
             logging.info("Can parse single action/asset.")
@@ -286,16 +253,12 @@ class i2af():
 
 
     def incident_to_owl(self, incident):
-        self.incident = incident
 
         # create namespace from victim_id
-        i_ns = incident['victim'].get('victim_id', uuid.uuid4()).lower()
+        i_ns = incident['victim'].get('victim_id', str(uuid.uuid4())).lower()
         i_ns = re.sub("[^0-9a-zA-Z_.\-~]+", "_", i_ns)
         i_ns = Namespace("urn:absolute:" + quote(i_ns) + "#")
         self.i_ns = i_ns
-        
-        # to number instances
-        self.enum_iterator = defaultdict(int)
         
         # start the incident's graph
         owl = Graph()
@@ -314,9 +277,14 @@ class i2af():
         # flow description literal
         owl.add((flowURI, self.af_ns['description.attack-flow'], Literal(incident['summary'])))
         self.flowURI = flowURI
+        
+        # to number instances
+        self.enum_iterator[flowURI] = defaultdict(int)
 
 
-        self.recurse_instances(incident, (), owl, exclusions=self.exclusions)
+        self.recurse_instances(incident, (), owl, i_ns=i_ns, flowURI=flowURI, incident=incident, exclusions=self.exclusions)
+
+        _ = self.enum_iterator.pop(flowURI) # delete the dictionary of number of instances used for sane naming of instances
         
         query = ("""SELECT DISTINCT  ?inst ?thing
         WHERE { 
@@ -325,13 +293,13 @@ class i2af():
            FILTER (?thing != owl:NamedIndividual)
         }""")
         qres = owl.query(query)
-        self.instances = defaultdict(set)
+        instances = defaultdict(set)
         for inst,thing in qres:
-            self.instances[str(thing)].add(str(inst))
-        self.instances = dict()
-        self.instances = {".".join(k.split(".")[:2]):list(v) for k,v in self.instances.items()}
+            instances[str(thing)].add(str(inst))
+        instances = dict()
+        instances = {".".join(k.split(".")[:2]):list(v) for k,v in instances.items()}
         
-        self.recurse_properties(incident, (), owl, exclusions=self.exclusions)    
+        self.recurse_properties(incident, (), owl, instances=instances, flowURI=flowURI, exclusions=self.exclusions)    
         
         # Determine causal linkages between actions if possible (use value.chain and or single-action)
         owl.add((self.veris_ns["attribute.unknown"], RDFS.subPropertyOf, self.af_ns['state_change']))
@@ -340,9 +308,50 @@ class i2af():
         return(owl)
 
 
-    def convert():
-        pass # TODO: given a bunch of incidents, output a bunch of graphs
+    def convert(
+        self,
+        input_veris,
+        output,
+        join=False
+        ):
+        if join:
+            g_joined = Graph()
 
+        for root, dirnames, filenames in tqdm(os.walk(input_veris)):
+          logging.info("starting parsing of directory {0}.".format(root))
+          # filenames = filter(lambda fname: fnmatch(fname, "*.json"), filenames)
+          filenames = [fname for fname in filenames if fnmatch(fname, "*.json")] # per 2to3. - GDB 181109
+          if filenames:
+            dir_ = os.path.join(output, root[len(input_veris):].lstrip("/")) # if we don't strip the input, we get duplicate directories 
+            logging.info("Output directory is {0}.".format(dir_))
+            if not os.path.isdir(dir_):
+                os.makedirs(dir_)
+            for fname in filenames:
+                in_fname = os.path.join(root, fname)
+                out_fname = os.path.join(dir_, (os.path.splitext(fname)[0] + ".jsonld"))
+
+                logging.info("Now processing %s" % in_fname)
+                try:
+                    #incident = sj.loads(open(in_fname).read())
+                    with open(in_fname, 'r') as filehandle:
+                        incident = json.load(filehandle)
+                except json.JSONDecodeError:
+                    logging.warning(
+                        "ERROR: %s did not parse properly. Skipping" % in_fname)
+                    continue
+
+                g = self.incident_to_owl(incident)
+                if join:
+                    g_joined.parse(data=g.serialize(format="json-ld"), format="json-ld")
+                else:
+                    with open(out_fname, 'w') as filehandle:
+                        filehandle.write(g.serialize(format="json-ld"))
+            if join:
+                out_fname = os.path.join(dir_, "joined_veris_graph_{0}.jsonld".format(datetime.now()))
+                with open(out_fname, 'w') as filehandle:
+                    filehandle.write(g_joined.serialize(format="json-ld"))
+                    logging.info(f"output file is {out_fname}.")
+ 
 
 if __name__ == '__main__':
     pass # TODO: Set up a command line interface
