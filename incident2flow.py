@@ -354,4 +354,40 @@ class i2af():
  
 
 if __name__ == '__main__':
-    pass # TODO: Set up a command line interface
+    descriptionText = """This script creates OWL VERIS incident graphs from JSON VERIS files."""
+    parser = argparse.ArgumentParser(description=descriptionText)
+    parser.add_argument("-l","--log_level",choices=["critical","error","warning","info","debug"], help="Minimum logging level to display", default="critical")
+    parser.add_argument('--log_file', help='Location of log file', default=None)
+    parser.add_argument("-i", "--input", required=True,
+                        help="top level folder to search for incidents")
+    parser.add_argument("-o", "--output", required=True,
+                        help="output directory to write new files.")
+    parser.add_argument("--veris_schema_graph", help="The veris schema in OWL graph format.", required=True)
+    parser.add_argument("--join",help="Join output incident graphs into a single file.",action="store_true")
+    parser.add_argument("--veris_ns", help="String representing the namespace for VERIS.", default="https://veriscommunity.net/attack-flow#")
+    parser.add_argument("--af_ns", help="String representing the namespace for attack flow. (should match what's in the 'af' file.", default="https://vz-risk.github.io/flow/attack-flow#")
+
+    args = parser.parse_args()
+    #args = {k:v for k,v in vars(args).items() if v is not None}
+
+    logging.info("Setting up logging")
+    if args.log_file:
+        logging.basicConfig(level={"critical": 50, "error": 40, "warning":30, "info":20, "debug":10}.get(args.log_level, 0), filename=args.log_file) 
+    else:
+        logging.basicConfig(level={"critical": 50, "error": 40, "warning":30, "info":20, "debug":10}.get(args.log_level, 0)) 
+
+    logging.info("Initialize the class.")
+    converter = i2af(
+        veris_schema_filename = args.veris_schema_graph,
+        attack_flow_namespace = args.af_ns,
+        veris_namespace = args.veris_ns       
+    )
+
+    logging.info("Converting incidents.")
+    converter.convert(
+        input_veris =args.input,
+        output = args.output,
+        join=args.join
+    )
+
+    logging.info("Conversion complete.")
