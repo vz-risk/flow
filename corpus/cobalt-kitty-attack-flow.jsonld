@@ -1,0 +1,1160 @@
+[
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ntlm-hash",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/passthehash"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/servicescan",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Network scanning was performed against entire ranges to gain information on open ports, services, and operating systems"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Network Service Scanning"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1046/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/passthehash",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "The attackers deployed a customized Mimikatz using stolen credentials from an administrative account, which they used to carry out a pass-the-hash attack"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Use Alternate Authentication Material: Pass the Hash"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1550/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/vbscript",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#provides",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#state_requirement"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/kerberos-ticket",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/passtheticket"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/powershell-script",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/deobfuscation"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/denisbackdoor",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "DNS tunneling was used for C2 communication and data exfiltration"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Application Layer Protocol: DNS"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/denis-backdoor"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1071/004/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/runkeys",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Windows Registry Autorun is used to execute VBScript and PowerShell scripts residing in the ProgramData folder"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/registry-key"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/vbscript"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1547/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/emailc2",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Malicious Outlook macroes were created to utilize email for C2 communication and data exfiltration"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Application Layer Protocol: Mail Protocols"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/outlook-macro"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1071/003/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/mimikatz",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Modified version of Mimikatz was used to dump credentials"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "OS Credential Dumping: LSA Secrets"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/credentials"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/outlook-credentials"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ntlm-hash"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/kerberos-ticket"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1003/004/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/phantomdll",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "A malicious DLL file was implanted where the Windows Search Service would run and load the DLL"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Phantom DLL Hijacking"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "http://www.hexacorn.com/blog/2013/12/08/beyond-good-ol-run-key-part-5/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/adminshares",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Net.exe was used to perform lateral movement via Windows Admin Shares"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Remote Services: SMB/Windows Admin Shares"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1021/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/passtheticket",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "The attackers deployed a customized Mimikatz using stolen credentials from an administrative account, which they used to carry out a pass-the-ticket attack"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Use Alternate Authentication Material: Pass the Ticket"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1550/003/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/googleupdate",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Scheduled tasks are created that load malicious PowerShell payloads using DLL hijacking with a Google Update binary"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Scheduled Task/Job: Scheduled Task"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1053/005/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scheduledtask",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Two scheduled tasks are created that download additional payloads"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Scheduled Task/Job: Scheduled Task"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scheduled-task"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1053/005/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/net",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "The attackers used several tools built into the Windows OS to gather information on the environment’s network and its users. Those tools included  netsh, ipconfig, netstat, arp, net user/group/localgroup, nslookup and Windows Management Instrumentation (WMI)."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "System Network Configuration Discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1016/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/comscriptlet"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/networkscan",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Network scanning was performed against entire ranges to gain information on open ports, services, and operating systems"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Remote System Discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1018/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/networkscan"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/servicescan"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/systeminfo"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/netstat"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/net"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/mimikatz"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/phishingattachment",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Word documents with malicious macros downloading Cobalt Strike payloads"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Phishing: Spearphishing Attachment"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/word-doc"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1566/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scheduled-task",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/deobfuscation"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/outlook-macro",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/denis-backdoor",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/credentials",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/adminshares"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/wmi"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#https://vz-risk.github.io/flow/attack-flow#www.cybereason.com/blog/operation-cobalt-kitty-apt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#attack-flow"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#created": [
+      {
+        "@value": "2021-10-15T00:00:00.0Z"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Cobalt Kitty APT"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/netstat",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "The attackers used several tools built into the Windows OS to gather information on the environment’s network and its users. Those tools included  netsh, ipconfig, netstat, arp, net user/group/localgroup, nslookup and Windows Management Instrumentation (WMI)."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": " System Network Connections Discovery "
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1049/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobaltstrikeps",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Obfuscated PowerShell scripts delivering Cobalt Strike beacons are downloaded"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: PowerShell"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/powershell-script"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/outlook",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Malicious Outlook backdoor macroes were to used to communicate with C2 servers and exfiltrate data"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Office Application Startup"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1137/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/malleablec2",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Cobalt Strike's malleable C2 profiles were used to impersonate Amazon, Google Safe Browsing, Pandora, and OSCP traffic"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Data Obfuscation: Protocol Impersonation"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1001/003/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/registry-key",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/phishinglink",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Link to a malicious site that downloads a fake Flash Installer delivering Cobalt Strike beacon."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Phishing: Spearphishing Link"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/flash-installer"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1566/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/com-scriptlet",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/malleablec2"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/denisbackdoor"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/emailc2"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/fileless-powershell",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobaltstrikeobf"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/comscriptlet",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Regsvr32.exe is used to download COM scriplets for malicious execution"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Signed Binary Proxy Execution: Regsvr32"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/com-scriptlet"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/netcat"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1218/010/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#required-by",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#state_change"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobaltstrikevb",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Script that combines vbscript and PowerShell is downloaded"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: Visual Basic"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/005/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobaltstrikeobf",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Obfuscated PowerShell scripts that executes a Cobalt Strike beacon"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: PowerShell"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobalt-strike"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/netcat",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/SndVolSSO.ps1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/word-doc",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scheduledtask"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ads",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Payloads for persistence were hidden in NTFS Alternate Data Streams"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Hide Artifacts: NTFS File Attributes"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/SndVolSSO.ps1"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1564/004/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobaltstrikevbps",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "VBScript to launch Cobalt Strike PowerShell scripts"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: Visual Basic"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/005/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/outlook-credentials",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/flash-installer",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobaltstrikeps"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobalt-strike",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/runkeys"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ads"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/wsearch"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/googleupdate"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/outlook"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/msfte.dll",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/phantomdll"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/deobfuscation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Obfuscated and XOR'ed PowerShell is decoded to download additional obfuscated PowerShell payloads"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Deobfuscate/Decode Files or Information"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/fileless-powershell"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1140/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/systeminfo",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "The attackers used several tools built into the Windows OS to gather information on the environment’s network and its users. Those tools included  netsh, ipconfig, netstat, arp, net user/group/localgroup, nslookup and Windows Management Instrumentation (WMI)."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "System Information Discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1082/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/wmi",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "WMI and 'net user' commands were used to deploy tools on remote machines"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Windows Management Instrumentation"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1047/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/wsearch",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Windows services were created and/or modified to load PowerShell scripts"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Create or Modify System Process: Windows Service"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/msfte.dll"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/005/"
+      }
+    ]
+  }
+]

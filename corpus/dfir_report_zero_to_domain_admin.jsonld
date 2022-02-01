@@ -1,0 +1,1069 @@
+[
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/run-cor-dll",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Execute cor.dll (Cobalt Strike stager)."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Signed Binary Proxy Execution: Rundll32"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder4"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1218/011/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/agent-ps1-compile",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "c# source code is compiled."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Obfuscated Files or Information: Compile After Delivery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/c2-instruction-compiled"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1027/004/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/macro",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "The macro downloads Hancitor DLL and runs it."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: Visual Basic"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ier.dll"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/005/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ier.dll",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/run-hancitor"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ingress-cobalt-strike",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Download Cobalt Strike."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Ingress Tool Transfer"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobalt-strike"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1105/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder5",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/run-agent-ps1"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/malicious-file",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Word document containing malicious macro."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "User Execution: Malicious File"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder1"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1204/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scan-machines",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Check.exe pings machines in comps.txt and saves to check.txt."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Network Service Scanning"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/reachable-machine-list"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1046/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-machines",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "comp2.ps1 enumerates domain computers and stores in comps.txt."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: Powershell"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/machine-list"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/phishing",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Phishing link to malicious Word Doc via Google Feed Proxy."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Phishing: Spearphishing Link"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/word-doc"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1566/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/c2-instruction-source-code",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/agent-ps1-compile"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/lateral-tool-transfer",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Copy cor.bat to \\\\${IP_ADDR}\\c$\\programdata."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Lateral Tool Transfer"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1570/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/c2-instruction-compiled",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/agent-ps1-beacon"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/pass-the-hash",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "PTH the domain administrator NTLM hash."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Use Alternate Authentication Material: Pass the Hash"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/domain-admin-account"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1550/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/process-injection",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Process injection to run multiple scans and probes."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Process Injection"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1055/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder4",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cli-magic-number"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/hancitor-c2-beacon"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/process-injection"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/domain-admin-account",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-machines"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/word-doc",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/malicious-file"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cobalt-strike",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/run-cor-dll"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scan-smb-backup"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-domain-accounts"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-domain-groups"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/zerologon-cve"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/domain-admin-ntlm-hash",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/pass-the-hash"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder10",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-domain-groups",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Execute agent1.ps1 to download and run beacon."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Permission Groups Discovery: Domain Groups"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1069/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scan-smb-backup",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Scan for SMB and backup products such as Synology."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Network Service Scanning"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/smb-host-discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1046/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/smb-share-discovery",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/lateral-tool-transfer"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ficker",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ficker-c2-beacon"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ingress-ficker",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Download Ficker Stealer."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Ingress Tool Transfer"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ficker"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1105/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/machine-list",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/discover-machines"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/cli-magic-number",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Does not execute unless given a magic number argument."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Virtualization/Sandbox Evasion"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder5"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1497/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/smb-host-discovery",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-smb-shares"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/run-hancitor",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Execute ier.dll (Hancitor)."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Signed Binary Proxy Execution: Rundll32"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder2"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1218/011/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder3",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ingress-cobalt-strike"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ingress-ficker"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/machine-discovery",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/scan-machines"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/discover-machines",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Discover domain copmputers using comps.txt."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Remote System Discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/machine-discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1018/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/run-agent-ps1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Execute agent1.ps1 to download and run beacon."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Command and Scripting Interpreter: Powershell"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder6"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1059/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#https://vz-risk.github.io/flow/attack-flow#thedfirreport.com/2021/11/01/from-zero-to-domain-admin/",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#attack-flow"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#author": [
+      {
+        "@value": "Mark E. Haase <mhaase@mitre-engenuity.org>"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#created": [
+      {
+        "@value": "2021-11-08T11:57:00-05:00"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "The DFIR Report: "
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#provides",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#state_requirement"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/macro"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-smb-shares",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Search for c$ shares using discovered SMB."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Network Share Discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/smb-share-discovery"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1135/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/agent-ps1-base64",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Powershell is base64-encoded."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Obfuscated Files or Information"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/c2-instruction-source-code"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1027/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/reachable-machine-list",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/ficker-c2-beacon",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Ficker beacon failed due to DNS resolution."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Application Layer Protocol"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1071/"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 0
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/placeholder6",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#required-by": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/agent-ps1-base64"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/hancitor-c2-beacon",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Hancitor uses HTTP protocol for C2."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Application Layer Protocol: Web Protocols"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1071/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/agent-ps1-beacon",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Agent.ps1 uses HTTP protocol for C2."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Application Layer Protocol: Web Protocols"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1071/001/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#required-by",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#state_change"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/enumerate-domain-accounts",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Enumerate domain administrator accounts."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Account Discovery: Domain Account"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1087/002/"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/zerologon-cve",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Custom Zerologon (CVE-2020-1472) exploit to obtain domain administrator NTLM hash."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Exploitation for Credential Access"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#provides": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-v1/domain-admin-ntlm-hash"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": "https://attack.mitre.org/techniques/T1212/"
+      }
+    ]
+  }
+]

@@ -1,0 +1,634 @@
+[
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#state-change",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#state_requirement"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-17",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#confidence": [
+      {
+        "@value": 1
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Run cryptomining software"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator_language": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "T1496: Resource Highjacking"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state-change": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-19"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-19",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#Cryptocurrency"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#description",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#state",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#state_change"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#flow-edge": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-3"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-11"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-12"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-17"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-18"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-23"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-1"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-7"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-9"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-13"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-15"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-19"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-21"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-24"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-18",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#confidence": [
+      {
+        "@value": 0
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Use harvested AWS credentials"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator_language": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "T1078.004: Valid Accounts: Cloud Accounts"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state-change": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-21"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-15",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#AWS Credentials"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-18"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#Kubernetes Dashboard"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-3"
+      },
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#exposed"
+      },
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#unsecured"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-13",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#Kubernetes Container"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-17"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#https://vz-risk.github.io/flow/attack-flow#flow-1",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#attack-flow"
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#author": [
+      {
+        "@value": "Unspecified"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#created": [
+      {
+        "@value": "2022-01-14T13:59:42-05:00"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "Attack Flow Export"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-21",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#AWS Access"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-23"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-7",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#Kubernetes Cluster"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-11"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-24",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#Data"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-3",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#confidence": [
+      {
+        "@value": 1
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Kubernetes Dashboard"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator_language": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "T1133: External Remote Services"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state-change": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-7"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-9"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-23",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#confidence": [
+      {
+        "@value": 0
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Download data from storage bucket"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator_language": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "T1530: Data from Cloud Storage Object"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state-change": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-24"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-edge",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#described_by"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-9",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#asset"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "https://vz-risk.github.io/flow/attack-flow#Kubernetes Admin Priv"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state": [
+      {
+        "@value": "compromised"
+      },
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-12"
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-11",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#confidence": [
+      {
+        "@value": 1
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Deploy cryptomining container"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator_language": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "T1610: Deploy Container"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state-change": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-13"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 1
+      }
+    ]
+  },
+  {
+    "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/action-12",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://vz-risk.github.io/flow/attack-flow#action"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#property"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#confidence": [
+      {
+        "@value": 0
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#description": [
+      {
+        "@value": "Harvest AWS service credentials."
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator": [
+      {
+        "@value": "AND"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#logic_operator_language": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#name": [
+      {
+        "@value": "T1552.001: Unsecured Credentials: Credentials In Files"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#reference": [
+      {
+        "@value": ""
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#state-change": [
+      {
+        "@id": "https://vz-risk.github.io/flow/attack-flow#flow-1/asset-15"
+      }
+    ],
+    "https://vz-risk.github.io/flow/attack-flow#succeeded": [
+      {
+        "@value": 1
+      }
+    ]
+  }
+]

@@ -74,7 +74,7 @@ class flow():
         """ return the rdf graph version of the flow."""
         if rules:
             flow = self.flow_rdf
-            flow.parse(data=self.rules.serialize(format="turtle"))
+            flow.parse(data=self.rules.serialize(format="xml"))
             return flow
         else:
             return self.flow_rdf
@@ -149,9 +149,9 @@ class flow():
                         flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
                     else: # Property
                         flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
-                        flow.graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
+                        flow_graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
                         # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
-                        flow.graph.add((self.namespace[target_id], RDFS.subClassOf, self.namespace['property']))
+                        flow_graph.add((self.namespace[target_id], RDFS.subClassOf, self.namespace['property']))
                         # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
                         flow_graph.add((self.namespace[type_id], RDFS.subPropertyOf, self.namespace["described_by"]))
                         flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
@@ -170,26 +170,26 @@ class flow():
                     elif target_id in assets:
                         logging.warning("Edge <{0}, {1}, {2}> is between two assets.  It will be added as a contextual rather than causal (action->asset or asset->action) relationship".format(source_id, type_id, target_id))
                         flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
-                        flow.graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
+                        flow_graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
                         # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
                         flow_graph.add((self.namespace[type_id], RDFS.subPropertyOf, self.namespace["described_by"]))
                         flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
                     else: # property
                         flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
-                        flow.graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
+                        flow_graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
                         # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
-                        flow.graph.add((self.namespace[target_id], RDFS.subClassOf, self.namespace['property']))
+                        flow_graph.add((self.namespace[target_id], RDFS.subClassOf, self.namespace['property']))
                         # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
                         flow_graph.add((self.namespace[type_id], RDFS.subPropertyOf, self.namespace["described_by"]))
                         flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
                 else: # if it's not an action or a asset, it's treated as a property (even if it's an attack-flow)
                     flow_graph.add((self.namespace[source_id], self.namespace[type_id], self.namespace[target_id]))
-                    flow.graph.add((self.namespace[source_id], RDF.type, OWL.NamedIndividual))
+                    flow_graph.add((self.namespace[source_id], RDF.type, OWL.NamedIndividual))
                     # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
-                    flow.graph.add((self.namespace[source_id], RDFS.subClassOf, self.namespace['property']))
-                    flow.graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
+                    flow_graph.add((self.namespace[source_id], RDFS.subClassOf, self.namespace['property']))
+                    flow_graph.add((self.namespace[target_id], RDF.type, OWL.NamedIndividual))
                     # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
-                    flow.graph.add((self.namespace[target_id], RDFS.subClassOf, self.namespace['property']))
+                    flow_graph.add((self.namespace[target_id], RDFS.subClassOf, self.namespace['property']))
                     # NOTE: below should only be if type_id is not in rules already and is not in another namespace.
                     flow_graph.add((self.namespace[type_id], RDFS.subPropertyOf, self.namespace["described_by"]))
                     flow_graph.add((self.namespace[type_id], RDF.type, OWL.ObjectProperty))
