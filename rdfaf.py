@@ -1,5 +1,6 @@
 # NOTE: did not quote/unquote URIs because technically the json schema validates URIs, however this allows a LOT of room for abuse.
-# V0.2.6.2
+# Attack Flow Version 2022-01-05-draft
+# rdfaf V1.0.0
 # author Gabriel Bassett
 
 from rdflib import Graph, Namespace
