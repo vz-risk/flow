@@ -1,0 +1,663 @@
+{
+  "@context": {
+    "af": "https://vz-risk.github.io/flow/attack-flow",
+    "owl": "http://www.w3.org/2002/07/owl",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema"
+  },
+  "@graph": [
+    {
+      "@id": "af:flow-v1/ntlm-hash",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/passthehash"
+      }
+    },
+    {
+      "@id": "af:flow-v1/servicescan",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Network scanning was performed against entire ranges to gain information on open ports, services, and operating systems",
+      "af:logic_operator": "AND",
+      "af:name": "Network Service Scanning",
+      "af:reference": "https://attack.mitre.org/techniques/T1046/"
+    },
+    {
+      "@id": "af:flow-v1/passthehash",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "The attackers deployed a customized Mimikatz using stolen credentials from an administrative account, which they used to carry out a pass-the-hash attack",
+      "af:logic_operator": "AND",
+      "af:name": "Use Alternate Authentication Material: Pass the Hash",
+      "af:reference": "https://attack.mitre.org/techniques/T1550/002/"
+    },
+    {
+      "@id": "af:flow-v1/vbscript",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:provides",
+      "@type": "owl:ObjectProperty",
+      "rdfs:subPropertyOf": {
+        "@id": "af:state_requirement"
+      }
+    },
+    {
+      "@id": "af:flow-v1/kerberos-ticket",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/passtheticket"
+      }
+    },
+    {
+      "@id": "af:flow-v1/powershell-script",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/deobfuscation"
+      }
+    },
+    {
+      "@id": "af:flow-v1/denisbackdoor",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "DNS tunneling was used for C2 communication and data exfiltration",
+      "af:logic_operator": "AND",
+      "af:name": "Application Layer Protocol: DNS",
+      "af:provides": [
+        {
+          "@id": "af:flow-v1/denis-backdoor"
+        },
+        {
+          "@id": "af:flow-v1/placeholder3"
+        }
+      ],
+      "af:reference": "https://attack.mitre.org/techniques/T1071/004/"
+    },
+    {
+      "@id": "af:flow-v1/runkeys",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Windows Registry Autorun is used to execute VBScript and PowerShell scripts residing in the ProgramData folder",
+      "af:logic_operator": "AND",
+      "af:name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder",
+      "af:provides": [
+        {
+          "@id": "af:flow-v1/registry-key"
+        },
+        {
+          "@id": "af:flow-v1/vbscript"
+        },
+        {
+          "@id": "af:flow-v1/placeholder2"
+        }
+      ],
+      "af:reference": "https://attack.mitre.org/techniques/T1547/001/"
+    },
+    {
+      "@id": "af:flow-v1/emailc2",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Malicious Outlook macroes were created to utilize email for C2 communication and data exfiltration",
+      "af:logic_operator": "AND",
+      "af:name": "Application Layer Protocol: Mail Protocols",
+      "af:provides": [
+        {
+          "@id": "af:flow-v1/outlook-macro"
+        },
+        {
+          "@id": "af:flow-v1/placeholder3"
+        }
+      ],
+      "af:reference": "https://attack.mitre.org/techniques/T1071/003/"
+    },
+    {
+      "@id": "af:flow-v1/mimikatz",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Modified version of Mimikatz was used to dump credentials",
+      "af:logic_operator": "AND",
+      "af:name": "OS Credential Dumping: LSA Secrets",
+      "af:provides": [
+        {
+          "@id": "af:flow-v1/credentials"
+        },
+        {
+          "@id": "af:flow-v1/outlook-credentials"
+        },
+        {
+          "@id": "af:flow-v1/ntlm-hash"
+        },
+        {
+          "@id": "af:flow-v1/kerberos-ticket"
+        }
+      ],
+      "af:reference": "https://attack.mitre.org/techniques/T1003/004/"
+    },
+    {
+      "@id": "af:flow-v1/phantomdll",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "A malicious DLL file was implanted where the Windows Search Service would run and load the DLL",
+      "af:logic_operator": "AND",
+      "af:name": "Phantom DLL Hijacking",
+      "af:provides": {
+        "@id": "af:flow-v1/placeholder2"
+      },
+      "af:reference": "http://www.hexacorn.com/blog/2013/12/08/beyond-good-ol-run-key-part-5/"
+    },
+    {
+      "@id": "af:flow-v1/adminshares",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Net.exe was used to perform lateral movement via Windows Admin Shares",
+      "af:logic_operator": "AND",
+      "af:name": "Remote Services: SMB/Windows Admin Shares",
+      "af:reference": "https://attack.mitre.org/techniques/T1021/002/"
+    },
+    {
+      "@id": "af:flow-v1/passtheticket",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "The attackers deployed a customized Mimikatz using stolen credentials from an administrative account, which they used to carry out a pass-the-ticket attack",
+      "af:logic_operator": "AND",
+      "af:name": "Use Alternate Authentication Material: Pass the Ticket",
+      "af:reference": "https://attack.mitre.org/techniques/T1550/003/"
+    },
+    {
+      "@id": "af:flow-v1/googleupdate",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Scheduled tasks are created that load malicious PowerShell payloads using DLL hijacking with a Google Update binary",
+      "af:logic_operator": "AND",
+      "af:name": "Scheduled Task/Job: Scheduled Task",
+      "af:provides": {
+        "@id": "af:flow-v1/placeholder2"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1053/005/"
+    },
+    {
+      "@id": "af:flow-v1/scheduledtask",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Two scheduled tasks are created that download additional payloads",
+      "af:logic_operator": "AND",
+      "af:name": "Scheduled Task/Job: Scheduled Task",
+      "af:provides": {
+        "@id": "af:flow-v1/scheduled-task"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1053/005/"
+    },
+    {
+      "@id": "af:flow-v1/net",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "The attackers used several tools built into the Windows OS to gather information on the environment’s network and its users. Those tools included  netsh, ipconfig, netstat, arp, net user/group/localgroup, nslookup and Windows Management Instrumentation (WMI).",
+      "af:logic_operator": "AND",
+      "af:name": "System Network Configuration Discovery",
+      "af:reference": "https://attack.mitre.org/techniques/T1016/"
+    },
+    {
+      "@id": "af:flow-v1/placeholder2",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/comscriptlet"
+      }
+    },
+    {
+      "@id": "af:flow-v1/networkscan",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Network scanning was performed against entire ranges to gain information on open ports, services, and operating systems",
+      "af:logic_operator": "AND",
+      "af:name": "Remote System Discovery",
+      "af:reference": "https://attack.mitre.org/techniques/T1018/"
+    },
+    {
+      "@id": "af:flow-v1/placeholder3",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": [
+        {
+          "@id": "af:flow-v1/networkscan"
+        },
+        {
+          "@id": "af:flow-v1/servicescan"
+        },
+        {
+          "@id": "af:flow-v1/systeminfo"
+        },
+        {
+          "@id": "af:flow-v1/netstat"
+        },
+        {
+          "@id": "af:flow-v1/net"
+        },
+        {
+          "@id": "af:flow-v1/mimikatz"
+        }
+      ]
+    },
+    {
+      "@id": "af:flow-v1/phishingattachment",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Word documents with malicious macros downloading Cobalt Strike payloads",
+      "af:logic_operator": "AND",
+      "af:name": "Phishing: Spearphishing Attachment",
+      "af:provides": {
+        "@id": "af:flow-v1/word-doc"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1566/001/"
+    },
+    {
+      "@id": "af:flow-v1/scheduled-task",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/deobfuscation"
+      }
+    },
+    {
+      "@id": "af:flow-v1/outlook-macro",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/denis-backdoor",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/credentials",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": [
+        {
+          "@id": "af:flow-v1/adminshares"
+        },
+        {
+          "@id": "af:flow-v1/wmi"
+        }
+      ]
+    },
+    {
+      "@id": "af:af:www.cybereason.com/blog/operation-cobalt-kitty-apt",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:attack-flow"
+      ],
+      "af:created": "2021-10-15T00:00:00.0Z",
+      "af:name": "Cobalt Kitty APT"
+    },
+    {
+      "@id": "af:flow-v1/netstat",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "The attackers used several tools built into the Windows OS to gather information on the environment’s network and its users. Those tools included  netsh, ipconfig, netstat, arp, net user/group/localgroup, nslookup and Windows Management Instrumentation (WMI).",
+      "af:logic_operator": "AND",
+      "af:name": " System Network Connections Discovery ",
+      "af:reference": "https://attack.mitre.org/techniques/T1049/"
+    },
+    {
+      "@id": "af:flow-v1/cobaltstrikeps",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Obfuscated PowerShell scripts delivering Cobalt Strike beacons are downloaded",
+      "af:logic_operator": "AND",
+      "af:name": "Command and Scripting Interpreter: PowerShell",
+      "af:provides": {
+        "@id": "af:flow-v1/powershell-script"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1059/001/"
+    },
+    {
+      "@id": "af:flow-v1/outlook",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Malicious Outlook backdoor macroes were to used to communicate with C2 servers and exfiltrate data",
+      "af:logic_operator": "AND",
+      "af:name": "Office Application Startup",
+      "af:provides": {
+        "@id": "af:flow-v1/placeholder2"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1137/"
+    },
+    {
+      "@id": "af:flow-v1/malleablec2",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Cobalt Strike's malleable C2 profiles were used to impersonate Amazon, Google Safe Browsing, Pandora, and OSCP traffic",
+      "af:logic_operator": "AND",
+      "af:name": "Data Obfuscation: Protocol Impersonation",
+      "af:provides": {
+        "@id": "af:flow-v1/placeholder3"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1001/003/"
+    },
+    {
+      "@id": "af:flow-v1/registry-key",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/phishinglink",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Link to a malicious site that downloads a fake Flash Installer delivering Cobalt Strike beacon.",
+      "af:logic_operator": "AND",
+      "af:name": "Phishing: Spearphishing Link",
+      "af:provides": {
+        "@id": "af:flow-v1/flash-installer"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1566/002/"
+    },
+    {
+      "@id": "af:flow-v1/com-scriptlet",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": [
+        {
+          "@id": "af:flow-v1/malleablec2"
+        },
+        {
+          "@id": "af:flow-v1/denisbackdoor"
+        },
+        {
+          "@id": "af:flow-v1/emailc2"
+        }
+      ]
+    },
+    {
+      "@id": "af:flow-v1/fileless-powershell",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/cobaltstrikeobf"
+      }
+    },
+    {
+      "@id": "af:flow-v1/comscriptlet",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Regsvr32.exe is used to download COM scriplets for malicious execution",
+      "af:logic_operator": "AND",
+      "af:name": "Signed Binary Proxy Execution: Regsvr32",
+      "af:provides": [
+        {
+          "@id": "af:flow-v1/com-scriptlet"
+        },
+        {
+          "@id": "af:flow-v1/netcat"
+        },
+        {
+          "@id": "af:flow-v1/placeholder3"
+        }
+      ],
+      "af:reference": "https://attack.mitre.org/techniques/T1218/010/"
+    },
+    {
+      "@id": "af:required-by",
+      "@type": "owl:ObjectProperty",
+      "rdfs:subPropertyOf": {
+        "@id": "af:state_change"
+      }
+    },
+    {
+      "@id": "af:flow-v1/cobaltstrikevb",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Script that combines vbscript and PowerShell is downloaded",
+      "af:logic_operator": "AND",
+      "af:name": "Command and Scripting Interpreter: Visual Basic",
+      "af:reference": "https://attack.mitre.org/techniques/T1059/005/"
+    },
+    {
+      "@id": "af:flow-v1/cobaltstrikeobf",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Obfuscated PowerShell scripts that executes a Cobalt Strike beacon",
+      "af:logic_operator": "AND",
+      "af:name": "Command and Scripting Interpreter: PowerShell",
+      "af:provides": {
+        "@id": "af:flow-v1/cobalt-strike"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1059/001/"
+    },
+    {
+      "@id": "af:flow-v1/netcat",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/SndVolSSO.ps1",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/word-doc",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/scheduledtask"
+      }
+    },
+    {
+      "@id": "af:flow-v1/ads",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Payloads for persistence were hidden in NTFS Alternate Data Streams",
+      "af:logic_operator": "AND",
+      "af:name": "Hide Artifacts: NTFS File Attributes",
+      "af:provides": [
+        {
+          "@id": "af:flow-v1/SndVolSSO.ps1"
+        },
+        {
+          "@id": "af:flow-v1/placeholder2"
+        }
+      ],
+      "af:reference": "https://attack.mitre.org/techniques/T1564/004/"
+    },
+    {
+      "@id": "af:flow-v1/cobaltstrikevbps",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "VBScript to launch Cobalt Strike PowerShell scripts",
+      "af:logic_operator": "AND",
+      "af:name": "Command and Scripting Interpreter: Visual Basic",
+      "af:reference": "https://attack.mitre.org/techniques/T1059/005/"
+    },
+    {
+      "@id": "af:flow-v1/outlook-credentials",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/flash-installer",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/cobaltstrikeps"
+      }
+    },
+    {
+      "@id": "af:flow-v1/cobalt-strike",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": [
+        {
+          "@id": "af:flow-v1/runkeys"
+        },
+        {
+          "@id": "af:flow-v1/ads"
+        },
+        {
+          "@id": "af:flow-v1/wsearch"
+        },
+        {
+          "@id": "af:flow-v1/googleupdate"
+        },
+        {
+          "@id": "af:flow-v1/outlook"
+        }
+      ]
+    },
+    {
+      "@id": "af:flow-v1/placeholder1",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ]
+    },
+    {
+      "@id": "af:flow-v1/msfte.dll",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:asset"
+      ],
+      "af:required-by": {
+        "@id": "af:flow-v1/phantomdll"
+      }
+    },
+    {
+      "@id": "af:flow-v1/deobfuscation",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Obfuscated and XOR'ed PowerShell is decoded to download additional obfuscated PowerShell payloads",
+      "af:logic_operator": "AND",
+      "af:name": "Deobfuscate/Decode Files or Information",
+      "af:provides": {
+        "@id": "af:flow-v1/fileless-powershell"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1140/"
+    },
+    {
+      "@id": "af:flow-v1/systeminfo",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "The attackers used several tools built into the Windows OS to gather information on the environment’s network and its users. Those tools included  netsh, ipconfig, netstat, arp, net user/group/localgroup, nslookup and Windows Management Instrumentation (WMI).",
+      "af:logic_operator": "AND",
+      "af:name": "System Information Discovery",
+      "af:reference": "https://attack.mitre.org/techniques/T1082/"
+    },
+    {
+      "@id": "af:flow-v1/wmi",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "WMI and 'net user' commands were used to deploy tools on remote machines",
+      "af:logic_operator": "AND",
+      "af:name": "Windows Management Instrumentation",
+      "af:reference": "https://attack.mitre.org/techniques/T1047/"
+    },
+    {
+      "@id": "af:flow-v1/wsearch",
+      "@type": [
+        "owl:NamedIndividual",
+        "af:action"
+      ],
+      "af:description": "Windows services were created and/or modified to load PowerShell scripts",
+      "af:logic_operator": "AND",
+      "af:name": "Create or Modify System Process: Windows Service",
+      "af:provides": {
+        "@id": "af:flow-v1/msfte.dll"
+      },
+      "af:reference": "https://attack.mitre.org/techniques/T1059/005/"
+    }
+  ]
+}
