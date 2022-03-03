@@ -21,14 +21,22 @@ class flow():
     schema = None
     flow_json = None
     flow_rdf = None
+    context = {
+        "af": "https://vz-risk.github.io/flow/attack-flow",
+        "owl": "http://www.w3.org/2002/07/owl",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema",
+        "af:contains": {"@type": "@id"}
+      }
     rules = Graph()
 
-    def __init__(self):
-        pass
+    def __init__(self, af_ns="https://vz-risk.github.io/flow/attack-flow"):
+        self.context['af'] = af_ns
+
 
     def load_namespace(self, namespace):
         """ Load a string as a namespace"""
         self.namespace = Namespace(namespace)
+        self.context['flow']: namespace.rstrip("#")
 
 
     def load_schema(self, schema):
