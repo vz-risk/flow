@@ -4,8 +4,11 @@
   "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
     "@value" : "Action-Asset model"
   } ],
+  "http://www.w3.org/2002/07/owl#versionIRI" : [ {
+    "@id" : "https://vz-risk.github.io/flow/attack-flow/1.0.0+211013.draft#"
+  } ],
   "http://www.w3.org/2002/07/owl#versionInfo" : [ {
-    "@value" : "1.0.0"
+    "@value" : "1.0.0+211013.draft"
   } ]
 }, {
   "@id" : "https://vz-risk.github.io/flow/attack-flow#action",
