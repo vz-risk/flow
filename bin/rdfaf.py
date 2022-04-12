@@ -142,9 +142,12 @@ class flow():
             return self.flow_rdf
 
 
-    def get_flow_json(self):
+    def get_flow_json(self, rules=False):
         """ return the JSON schema version of the flow"""
-        return self.flow_json
+        flow = self.flow_json
+        if not rules:
+            _ = flow.pop('rules')
+        return flow
 
 
     def json_to_rdf(self, flow_json):
@@ -461,7 +464,7 @@ class flow():
             "relationships": relationships,
             "object_properties": object_properties,
             "data_properties": data_properties,
-            "rules": self.rules
+            "rules": self.rules.serialize(format="json-ld")
         }
 
         return flow_json
@@ -587,16 +590,22 @@ def main(cfg):
     with open(cfg['input'], 'r') as filehandle:
         in_case = json.load(filehandle)
     if type(in_case) == list:
+        out_type = "json-schema"
         in_case_j = in_case
         in_case = Graph()
         in_case.parse(data=json.dumps(in_case_j), format="json-ld")
     elif type(in_case) == dict:
-        pass # json schema so can just pass
+        out_type = "json-ld"
     case.load_flow(in_case)
 
     # write output
     with open(cfg['output'], 'w') as filehandle:
-        filehandle.write(case.get_flow_graph(rules=False).serialize(format="json-ld"))
+        if out_type == "json-ld":
+            filehandle.write(case.get_flow_graph(rules=cfg['rules']).serialize(format="json-ld"))
+        elif out_type == "json-schema":
+            json.dump(case.get_flow_json(rules=cfg['rules']), filehandle, indent=2, sort_keys=True, separators=(',', ': '))
+        else:
+            raise TypeError("The input format is not clearly a json-ld graph or an attack flow json-schema file.")
 
 
 if __name__ == "__main__":
@@ -610,6 +619,7 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--schema', required=True, help='The attack flow JSON schema.')
     parser.add_argument('-i', '--input', required=True, help='The labels file to be updated.')
     parser.add_argument('-o', '--output', required=True, help='The labels file to be outputted.')
+    parser.add_argument('-r', '--rules', action='store_true', default=False)
     args = parser.parse_args()
     args = {k:v for k,v in vars(args).items() if v is not None}
 
