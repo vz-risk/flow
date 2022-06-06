@@ -406,8 +406,12 @@ class flow():
             ?s ?o ?p 
             #?o rdf:type owl:DatatypeProperty .
             FILTER(isLiteral(?p)) .
+            FILTER NOT EXISTS { ?s rdf:type af:action } .
+            FILTER NOT EXISTS { ?s rdf:type af:asset } .
+            FILTER NOT EXISTS { ?s rdf:type af:attack-flow } .
           } 
         }""")
+        print(query)
         data_properties = []
         qres = flow_graph.query(query)
         for triple in qres:
